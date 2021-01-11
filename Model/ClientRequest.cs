@@ -9,12 +9,13 @@ using System.Threading.Tasks;
 
 namespace WEB_SERVICE_CLIENT_MAGATZEM.Model
 {
+    
     public class ClientRequest
     {
-        //The access is limited to current assembly (internal)
+        //The access is limited to current assembly (internal) 
         internal static string ws1 = "https://localhost:44353/api/";
 
-
+        //This method is fully done by Professor Miquel A.
         public static object MakeRequest(string requestUrl, object JSONRequest, string JSONmethod, string JSONContentType, Type JSONResponseType)
         //  requestUrl: Url completa del Web Service, amb l'opció sol·licitada
         //  JSONrequest: objecte que se li passa en el body 
