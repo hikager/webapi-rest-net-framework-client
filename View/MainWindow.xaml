@@ -16,7 +16,7 @@
             <ColumnDefinition Width="373*"/>
         </Grid.ColumnDefinitions>
         <ComboBox HorizontalAlignment="Left" Margin="72,73,0,0" VerticalAlignment="Top" Width="231" ItemsSource="{Binding WarehouseCollectionOrigin}" DisplayMemberPath="nom" SelectedItem="{Binding SelectedWarehouseOrigin}"/>
-        <ComboBox HorizontalAlignment="Left" Margin="43.188,73,0,0" VerticalAlignment="Top" Width="231" Grid.Column="1"/>
+        <ComboBox HorizontalAlignment="Left" Margin="43.188,73,0,0" VerticalAlignment="Top" Width="231" Grid.Column="1" ItemsSource="{Binding WarehouseCollectionDestination}" DisplayMemberPath="nom"/>
         <DataGrid HorizontalAlignment="Left" Height="233" VerticalAlignment="Top" Width="231" Margin="72,127,0,0" ItemsSource="{Binding ProductOriginCollection}"/>
         <DataGrid HorizontalAlignment="Left" Height="233" VerticalAlignment="Top" Width="231" Margin="43.188,127,0,0" Grid.Column="1"/>
         <Button Content="---&gt;" HorizontalAlignment="Left" Margin="340,236,0,0" VerticalAlignment="Top" Width="76" RenderTransformOrigin="0.023,0.706" FontWeight="Bold" FontSize="20"/>
