@@ -50,7 +50,7 @@ namespace WEB_SERVICE_CLIENT_MAGATZEM.ViewModel
         public MagatzemDTO SelectedWarehouseOrigin
         {
             get { return _selectedWarehouseOrigin; }
-            set { _selectedWarehouseOrigin = value; NotifyPropertyChanged(); PopulateOriginProducts();  PopulateWarehouseDestination(); }
+            set { _selectedWarehouseOrigin = value; NotifyPropertyChanged(); PopulateOriginProducts(); PopulateWarehouseDestination(); }
         }
         #endregion
 
@@ -60,28 +60,33 @@ namespace WEB_SERVICE_CLIENT_MAGATZEM.ViewModel
         #region methods
         private void PopulateWarehouseOrigin()
         {
-            WarehouseCollectionOrigin = new ObservableCollection<MagatzemDTO>(Repository.GetWarehouse());
+            var warehouses = Repository.GetWarehouse();
+            if (warehouses != null)
+                WarehouseCollectionOrigin = new ObservableCollection<MagatzemDTO>(warehouses);
+            else
+            {
+                Console.WriteLine($"\nNo warehouse were found! (maybe server is not started)");
+                WarehouseCollectionOrigin = new ObservableCollection<MagatzemDTO>();
+            }
         }
         private void PopulateWarehouseDestination()
         {
-            WarehouseCollectionDestination = new ObservableCollection<MagatzemDTO>(Repository.GetWarehouse().Where(w=> (w.id != SelectedWarehouseOrigin.id)).ToList());
+            WarehouseCollectionDestination = new ObservableCollection<MagatzemDTO>(Repository.GetWarehouse().Where(w => (w.id != SelectedWarehouseOrigin.id)).ToList());
         }
         private void PopulateOriginProducts()
         {
-            try
-            {
-                ProductOriginCollection = new ObservableCollection<object>(Repository.GetProducts(SelectedWarehouseOrigin.id).Select(p => new { Nom= p.nom, Qnt=p.Qnt}));
+            var products = Repository.GetProducts(SelectedWarehouseOrigin.id).Select(p => new { Nom = p.nom, Qnt = p.Qnt });
 
-            }
-            catch (Exception)
+            if (products != null)
+                ProductOriginCollection = new ObservableCollection<object>(products);
+            else
             {
-               
                 Console.WriteLine($"\nNo stock on [{SelectedWarehouseOrigin.nom}] warehouse (No products yet)\n");
                 ProductOriginCollection = new ObservableCollection<object>();
-           
             }
-
         }
+
+
         #endregion
 
         #region INotifyPropertyChanged members
