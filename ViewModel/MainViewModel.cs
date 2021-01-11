@@ -35,20 +35,22 @@ namespace WEB_SERVICE_CLIENT_MAGATZEM.ViewModel
             set { _warehouseCollectionDestination = value; NotifyPropertyChanged(); }
         }
 
+
+
         //datagrid  products for products 
-        private ObservableCollection<ProducteDTO> _productCollection;
-        public ObservableCollection<ProducteDTO> ProductCollection
+        private ObservableCollection<object> _productOriginCollection;
+        public ObservableCollection<object> ProductOriginCollection
         {
-            get { return _productCollection; }
-            set { ProductCollection = value; NotifyPropertyChanged(); }
+            get { return _productOriginCollection; }
+            set { _productOriginCollection = value; NotifyPropertyChanged(); }
         }
 
         //Selecting using Id's
-        private int _selectedWarehouseOrigin;
-        public int SelectedWarehouseOrigin
+        private MagatzemDTO _selectedWarehouseOrigin;
+        public MagatzemDTO SelectedWarehouseOrigin
         {
             get { return _selectedWarehouseOrigin; }
-            set { _selectedWarehouseOrigin = value; NotifyPropertyChanged(); PopulateWarehouseDestination(); }
+            set { _selectedWarehouseOrigin = value; NotifyPropertyChanged(); PopulateOriginProducts();  PopulateWarehouseDestination(); }
         }
         #endregion
 
@@ -62,10 +64,24 @@ namespace WEB_SERVICE_CLIENT_MAGATZEM.ViewModel
         }
         private void PopulateWarehouseDestination()
         {
-            WarehouseCollectionDestination = new ObservableCollection<MagatzemDTO>(Repository.GetWarehouse().Where(w=> (w.id != SelectedWarehouseOrigin)).ToList());
+            WarehouseCollectionDestination = new ObservableCollection<MagatzemDTO>(Repository.GetWarehouse().Where(w=> (w.id != SelectedWarehouseOrigin.id)).ToList());
         }
+        private void PopulateOriginProducts()
+        {
+            try
+            {
+                ProductOriginCollection = new ObservableCollection<object>(Repository.GetProducts(SelectedWarehouseOrigin.id).Select(p => new { Nom= p.nom, Qnt=p.Qnt}));
 
+            }
+            catch (Exception)
+            {
+               
+                Console.WriteLine($"\nNo stock on [{SelectedWarehouseOrigin.nom}] warehouse (No products yet)\n");
+                ProductOriginCollection = new ObservableCollection<object>();
+           
+            }
 
+        }
         #endregion
 
         #region INotifyPropertyChanged members

@@ -28,5 +28,7 @@ namespace WEB_SERVICE_CLIENT_MAGATZEM.Model
             this.nom = nom;
             this.Qnt = Qnt;
         }
+
+        public bool ShouldSerializeid() { return false; }
     }
 }
