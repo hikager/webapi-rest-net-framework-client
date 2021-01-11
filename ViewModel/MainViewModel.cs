@@ -36,7 +36,6 @@ namespace WEB_SERVICE_CLIENT_MAGATZEM.ViewModel
         }
 
 
-
         //datagrid  products for products 
         private ObservableCollection<object> _productOriginCollection;
         public ObservableCollection<object> ProductOriginCollection
@@ -44,6 +43,14 @@ namespace WEB_SERVICE_CLIENT_MAGATZEM.ViewModel
             get { return _productOriginCollection; }
             set { _productOriginCollection = value; NotifyPropertyChanged(); }
         }
+        private ObservableCollection<object> _productDestinationCollection;
+        public ObservableCollection<object> ProductDestinationCollection
+        {
+            get { return _productDestinationCollection; }
+            set { _productDestinationCollection = value; NotifyPropertyChanged(); }
+        }
+
+
 
         //Selecting using Id's  by wharehouse
         private MagatzemDTO _selectedWarehouseOrigin;
@@ -53,12 +60,23 @@ namespace WEB_SERVICE_CLIENT_MAGATZEM.ViewModel
             set { _selectedWarehouseOrigin = value; NotifyPropertyChanged(); PopulateOriginProducts(); PopulateWarehouseDestination(); }
         }
 
+        private MagatzemDTO _selectedWarehouseDestination;
+        public MagatzemDTO SelectedWarehouseDestination
+        {
+            get { return _selectedWarehouseDestination; }
+            set { _selectedWarehouseDestination = value; NotifyPropertyChanged(); PopulateDestinationProducts(); }
+        }
+
+
+
         private ProducteDTO _selecteProductOrigin;
         public ProducteDTO SelecteProductOrigin
         {
             get { return _selecteProductOrigin; }
             set { _selecteProductOrigin = value; NotifyPropertyChanged(); }
         }
+
+
 
         //The amount which will be transfer to another warehouse
         private int _productAmount;
@@ -104,7 +122,22 @@ namespace WEB_SERVICE_CLIENT_MAGATZEM.ViewModel
                     ProductOriginCollection = new ObservableCollection<object>();
                 }
             }
-            
+
+        }
+
+        private void PopulateDestinationProducts()
+        {
+            if (SelectedWarehouseDestination != null)
+            {
+                var products = Repository.GetProducts(SelectedWarehouseDestination.id);
+
+                if(products !=null)
+                    ProductDestinationCollection = new ObservableCollection<object>(products.Select(p => new { Nom = p.nom, Qnt = p.Qnt }));
+                else{
+                    Console.WriteLine($"\nNo stock on [{SelectedWarehouseDestination.nom}] warehouse (No products yet)\n");
+                    ProductDestinationCollection = new ObservableCollection<object>();
+                }
+            }
         }
 
 

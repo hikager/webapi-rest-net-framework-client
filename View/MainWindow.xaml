@@ -16,9 +16,9 @@
             <ColumnDefinition Width="373*"/>
         </Grid.ColumnDefinitions>
         <ComboBox HorizontalAlignment="Left" Margin="72,73,0,0" VerticalAlignment="Top" Width="231" ItemsSource="{Binding WarehouseCollectionOrigin}" DisplayMemberPath="nom" SelectedItem="{Binding SelectedWarehouseOrigin}"/>
-        <ComboBox HorizontalAlignment="Left" Margin="43.188,73,0,0" VerticalAlignment="Top" Width="231" Grid.Column="1" ItemsSource="{Binding WarehouseCollectionDestination}" DisplayMemberPath="nom"/>
+        <ComboBox HorizontalAlignment="Left" Margin="43.188,73,0,0" VerticalAlignment="Top" Width="231" Grid.Column="1" ItemsSource="{Binding WarehouseCollectionDestination}" DisplayMemberPath="nom" SelectedItem="{Binding SelectedWarehouseDestination}"/>
         <DataGrid HorizontalAlignment="Left" Height="233" VerticalAlignment="Top" Width="231" Margin="72,127,0,0" ItemsSource="{Binding ProductOriginCollection}"/>
-        <DataGrid HorizontalAlignment="Left" Height="233" VerticalAlignment="Top" Width="231" Margin="43.188,127,0,0" Grid.Column="1"/>
+        <DataGrid HorizontalAlignment="Left" Height="233" VerticalAlignment="Top" Width="231" Margin="43.188,127,0,0" Grid.Column="1" ItemsSource="{Binding ProductDestinationCollection}"/>
         <Button Content="---&gt;" HorizontalAlignment="Left" Margin="340,236,0,0" VerticalAlignment="Top" Width="76" RenderTransformOrigin="0.023,0.706" FontWeight="Bold" FontSize="20"/>
         <TextBox HorizontalAlignment="Left" Height="26" Margin="340,192,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="71" />
         <Label Content="Quantitat" HorizontalAlignment="Left" Margin="340,161,0,0" VerticalAlignment="Top" Background="#FFB4B4B4" FontWeight="Bold" Width="71"/>
