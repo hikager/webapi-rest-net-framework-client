@@ -11,6 +11,22 @@ namespace WEB_SERVICE_CLIENT_MAGATZEM.Model
     {
         private static string endPoint = ClientRequest.ws1;
 
+        //Updates a product -> transfers its qnt from its warehouse to another (changing its quantity from the previous one)
+        public static string UpdateProduct(int qProduct, int productId, int oldWarehouseId, int newWarehouseIdd)
+        {
+            string response = "";
+            try
+            {
+                response = (string)ClientRequest.MakeRequest(string.Concat(endPoint, "mag/", $"{qProduct}/{productId}/{oldWarehouseId}/{newWarehouseIdd}"), null, "Post", "application/json", typeof(List<ProducteDTO>));
+            }
+            catch (Exception)
+            {
+                Console.WriteLine($"");
+               
+            }
+            return response;
+        }
+
         public static List<ProducteDTO> GetProducts(int warehouseId)
         {
             List<ProducteDTO> products = null;
@@ -24,8 +40,6 @@ namespace WEB_SERVICE_CLIENT_MAGATZEM.Model
             {
                 Console.WriteLine($"\nNo stock on [{warehouseId}] warehouse (No products yet)\n");
             }
-
-
 
             return products;
         }

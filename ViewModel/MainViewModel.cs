@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Command;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -6,6 +7,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using WEB_SERVICE_CLIENT_MAGATZEM.Model;
 
 namespace WEB_SERVICE_CLIENT_MAGATZEM.ViewModel
@@ -80,7 +82,7 @@ namespace WEB_SERVICE_CLIENT_MAGATZEM.ViewModel
 
         //The amount which will be transfer to another warehouse
         private int _productAmount;
-        private int ProductAmount
+        public int ProductAmount
         {
             get { return _productAmount; }
             set { _productAmount = value; NotifyPropertyChanged(); }
@@ -89,6 +91,25 @@ namespace WEB_SERVICE_CLIENT_MAGATZEM.ViewModel
         #endregion
 
 
+
+        #region commands
+
+        public ICommand BtnTransfer => new RelayCommand(TransferProduct);
+
+
+        public void TransferProduct()
+        {
+            if (SelectedWarehouseOrigin != null && SelecteProductOrigin != null && SelectedWarehouseDestination != null)
+            {
+                Repository.UpdateProduct(ProductAmount, this.SelecteProductOrigin.id, SelectedWarehouseOrigin.id, SelectedWarehouseDestination.id);
+                PopulateOriginProducts();
+                PopulateDestinationProducts();
+                ProductAmount = 0;
+            }
+
+        }
+
+        #endregion
 
 
         #region methods
@@ -115,7 +136,7 @@ namespace WEB_SERVICE_CLIENT_MAGATZEM.ViewModel
                 var products = Repository.GetProducts(SelectedWarehouseOrigin.id);
 
                 if (products != null)
-                    ProductOriginCollection = new ObservableCollection<object>(products.Select(p => new { Nom = p.nom, Qnt = p.Qnt }));
+                    ProductOriginCollection = new ObservableCollection<object>(products);
                 else
                 {
                     Console.WriteLine($"\nNo stock on [{SelectedWarehouseOrigin.nom}] warehouse (No products yet)\n");
@@ -131,16 +152,15 @@ namespace WEB_SERVICE_CLIENT_MAGATZEM.ViewModel
             {
                 var products = Repository.GetProducts(SelectedWarehouseDestination.id);
 
-                if(products !=null)
+                if (products != null)
                     ProductDestinationCollection = new ObservableCollection<object>(products.Select(p => new { Nom = p.nom, Qnt = p.Qnt }));
-                else{
+                else
+                {
                     Console.WriteLine($"\nNo stock on [{SelectedWarehouseDestination.nom}] warehouse (No products yet)\n");
                     ProductDestinationCollection = new ObservableCollection<object>();
                 }
             }
         }
-
-
         #endregion
 
         #region INotifyPropertyChanged members
