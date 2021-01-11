@@ -5,28 +5,20 @@ using System.Web;
 
 namespace WEB_SERVICE_CLIENT_MAGATZEM.Model
 {
-    public class ProducteDTO
+    public class MagatzemDTO
     {
+
         public int id { get; set; }
         public string nom { get; set; }
-        public int Qnt { get; set; }
 
-        public ProducteDTO()
+        public MagatzemDTO()
         {
 
         }
-
-        public ProducteDTO(int id, string nom)
+        public MagatzemDTO(int id, string nom)
         {
             this.id = id;
             this.nom = nom;
-        }
-
-        public ProducteDTO(int id, string nom, int Qnt)
-        {
-            this.id = id;
-            this.nom = nom;
-            this.Qnt = Qnt;
         }
     }
 }
