@@ -12,7 +12,7 @@ namespace WEB_SERVICE_CLIENT_MAGATZEM.Model
     public class ClientRequest
     {
         //The access is limited to current assembly (internal)
-        internal static string ws1 = "https://localhost:44349/api/";
+        internal static string ws1 = "https://localhost:44353/api/";
 
 
         public static object MakeRequest(string requestUrl, object JSONRequest, string JSONmethod, string JSONContentType, Type JSONResponseType)
