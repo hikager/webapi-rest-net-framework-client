@@ -1,0 +1,9 @@
+﻿<Application x:Class="WEB_SERVICE_CLIENT_MAGATZEM.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:WEB_SERVICE_CLIENT_MAGATZEM"
+             StartupUri="View/MainWindow.xaml">
+    <Application.Resources>
+         
+    </Application.Resources>
+</Application>
