@@ -3,3 +3,7 @@ This is the client for the  [webapi-rest-net-framework repository](https://githu
 
 ## What is this client about?
 Transfers from one _warehouse_ to another an amount of products using Post and Get request to the web-api-rest.
+
+*Database structure* 
+
+<img align="left" src="https://github.com/hikager/webapi-rest-net-framework-client/blob/master/pic-repo/database-record-structure.PNG">
